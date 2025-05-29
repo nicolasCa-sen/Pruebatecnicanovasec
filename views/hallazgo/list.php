@@ -11,6 +11,20 @@
 <div class="container mt-4">
     <h1>Lista de Hallazgos</h1>
     <a href="index.php?entity=hallazgo&action=create" class="btn btn-primary mb-3">Crear Hallazgo</a>
+    <form method="get" class="form-inline mb-3">
+    <input type="hidden" name="entity" value="hallazgo">
+    <input type="hidden" name="action" value="index">
+    <label for="id_proceso_origen" class="mr-2">Filtrar por Proceso Origen:</label>
+    <select name="id_proceso_origen" id="id_proceso_origen" class="form-control mr-2" onchange="this.form.submit()">
+        <option value="">-- Todos --</option>
+        <?php foreach ($procesos as $proceso): ?>
+            <option value="<?= $proceso['id'] ?>" <?= (isset($_GET['id_proceso_origen']) && $_GET['id_proceso_origen'] == $proceso['id']) ? 'selected' : '' ?>>
+                <?= htmlspecialchars($proceso['nombre']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <noscript><button type="submit" class="btn btn-secondary">Filtrar</button></noscript>
+</form>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -19,6 +33,7 @@
                 <th>Descripción</th>
                 <th>Estado</th>
                 <th>Usuario</th>
+                <th>Proceso Origen</th>
                 <th>Procesos</th>
                 <th>Acciones</th>
             </tr>
@@ -31,6 +46,7 @@
                 <td><?= $hallazgo['descripcion'] ?></td>
                 <td><?= $hallazgo['estado_nombre'] ?></td>
                 <td><?= $hallazgo['usuario_nombre'] ?></td>
+                <td><?= $hallazgo['proceso_origen_nombre'] ?></td>
                 <td>
                     <ul>
                         <?php foreach ($hallazgo['procesos'] as $proceso): ?>
