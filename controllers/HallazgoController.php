@@ -19,7 +19,11 @@ class HallazgoController {
     }
 
     public function index() {
-        $hallazgos = $this->model->getAll();
+
+        $id_proceso_origen = $_GET['id_proceso_origen'] ?? null;
+
+        $hallazgos = $this->model->getAll($id_proceso_origen);
+        $procesos = $this->procesoModel->getAll();
         require 'views/hallazgo/list.php';
     }
 
@@ -41,8 +45,9 @@ class HallazgoController {
         $proceso_ids = $data['procesos'] ?? [];
         $id_estado = $data['id_estado'];
         $id_usuario = $data['id_usuario'];
+        $id_proceso_origen = $data['id_proceso_origen'] ?? null;
 
-        $this->model->insert($titulo, $descripcion, $proceso_ids, $id_estado, $id_usuario);
+        $this->model->insert($titulo, $descripcion, $proceso_ids, $id_estado, $id_usuario, $id_proceso_origen);
         header('Location: index.php?entity=hallazgo&action=index');
     }
 
@@ -62,8 +67,9 @@ class HallazgoController {
         $proceso_ids = $data['procesos'] ?? [];
         $id_estado = $data['id_estado'];
         $id_usuario = $data['id_usuario'];
+            $id_proceso_origen = $data['id_proceso_origen'] ?? null;
 
-        $this->model->update($id, $titulo, $descripcion, $proceso_ids, $id_estado, $id_usuario);
+        $this->model->update($id, $titulo, $descripcion, $proceso_ids, $id_estado, $id_usuario, $id_proceso_origen);
         header('Location: index.php?entity=hallazgo&action=index');
     }
 

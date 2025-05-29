@@ -17,6 +17,7 @@
             <p class="card-text">Descripción: <?= $hallazgo['descripcion'] ?></p>
             <p class="card-text">Estado: <?= $hallazgo['estado_nombre'] ?></p>
             <p class="card-text">Usuario Responsable: <?= $hallazgo['usuario_nombre'] ?></p>
+            <p class="card-text">Proceso Origen: <?= $hallazgo['proceso_origen_nombre'] ?></p>
             <h6>Procesos Asociados:</h6>
             <ul>
                 <?php foreach ($hallazgo['procesos'] as $proceso): ?>

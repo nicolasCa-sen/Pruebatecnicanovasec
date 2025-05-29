@@ -43,6 +43,15 @@
                 <?php endforeach; ?>
             </select>
         </div>
+        <div class="form-group">
+            <label for="id_proceso_origen">Proceso Origen</label>
+            <select class="form-control" id="id_proceso_origen" name="id_proceso_origen" required>
+            <option value="">Seleccione un proceso</option>
+                <?php foreach ($procesos as $proceso): ?>
+                <option value="<?= $proceso['id'] ?>"><?= $proceso['nombre'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a href="index.php?entity=hallazgo&action=index" class="btn btn-secondary">Cancelar</a>
     </form>
