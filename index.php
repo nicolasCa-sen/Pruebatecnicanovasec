@@ -59,7 +59,9 @@ if ($entity === 'incidente') {
         $controller->create();
     } elseif ($action === 'edit' && $id) {
         $controller->edit($id);
-    } else {
+    }elseif ($action === 'updateEstado' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller->updateEstado();
+    }else {
         $controller->index();
     }
 }

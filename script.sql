@@ -176,3 +176,9 @@ INSERT INTO Registro_PlanAccion (id_registro, origen_registro, id_plan_accion) V
     (8, 'INCIDENTE', 8),
     (9, 'INCIDENTE', 9),
     (10, 'INCIDENTE', 10);
+
+    -- comando addicionales para la historia de usuario 1
+
+    ALTER TABLE Hallazgo
+    ADD COLUMN id_proceso_origen INT,
+    ADD CONSTRAINT fk_hallazgo_proceso_origen FOREIGN KEY (id_proceso_origen) REFERENCES Proceso(ID);

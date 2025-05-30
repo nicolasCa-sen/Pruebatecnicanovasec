@@ -24,6 +24,7 @@ class HallazgoController {
 
         $hallazgos = $this->model->getAll($id_proceso_origen);
         $procesos = $this->procesoModel->getAll();
+        $estados = $this->estadoModel->getAll(); // AÑADIR si no está
         require 'views/hallazgo/list.php';
     }
 
@@ -76,6 +77,18 @@ class HallazgoController {
     public function delete($id) {
         $this->model->delete($id);
         header('Location: index.php?action=index');
+    }
+
+    public function updateEstado() {
+    $id = $_POST['id'] ?? null;
+    $id_estado = $_POST['id_estado'] ?? null;
+
+    if ($id && $id_estado) {
+        $this->model->updateEstado($id, $id_estado);
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false]);
+    }
     }
 }
 ?>
