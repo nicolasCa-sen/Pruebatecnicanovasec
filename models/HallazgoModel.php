@@ -104,5 +104,12 @@ class HallazgoModel {
         $stmt->execute([$hallazgo_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+   public function updateEstado($id, $id_estado) {
+    $stmt = $this->pdo->prepare("UPDATE Hallazgo SET id_estado = ? WHERE id = ?");
+    return $stmt->execute([$id_estado, $id]);
+}
+
+
 }
 ?>

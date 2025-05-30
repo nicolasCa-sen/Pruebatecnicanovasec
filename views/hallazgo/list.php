@@ -44,7 +44,15 @@
                 <td><?= $hallazgo['id'] ?></td>
                 <td><?= $hallazgo['titulo'] ?></td>
                 <td><?= $hallazgo['descripcion'] ?></td>
-                <td><?= $hallazgo['estado_nombre'] ?></td>
+                <td>
+                    <select class="estado-select" data-id="<?= $hallazgo['id'] ?>">
+                        <?php foreach ($estados as $estado): ?>
+                        <option value="<?= $estado['id'] ?>" <?= $estado['id'] == $hallazgo['id_estado'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($estado['nombre']) ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
                 <td><?= $hallazgo['usuario_nombre'] ?></td>
                 <td><?= $hallazgo['proceso_origen_nombre'] ?></td>
                 <td>
@@ -63,6 +71,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
 </div>
+<script src="assets/js/hallazgos.js"></script>
+
 </body>
 </html>
