@@ -4,8 +4,12 @@ require_once 'models/IncidenteModel.php';
 require_once 'models/EstadoModel.php';
 require_once 'models/UsuarioModel.php';
 require_once 'models/PlanAccionModel.php';
+require_once 'Traits/PlanAccionTrait.php';
 
 class IncidenteController {
+
+    use PlanAccionTrait;
+
     private $model;
     private $estadoModel;
     private $usuarioModel;
@@ -65,35 +69,22 @@ class IncidenteController {
         $this->model->delete($id);
         header('Location: index.php?entity=incidente&action=index');
     }
-	
+
 	// Método para manejar la solicitud de planes de acción
-    public function planesAccion($id_incidente) {
-        $incidente = $this->model->getById($id_incidente);
-        $planesAccion = $this->planAccionModel->getByRegistro($id_incidente, 'INCIDENTE');
-        $estados = $this->estadoModel->getAll();
-        $usuarios = $this->usuarioModel->getAll();
-        require 'views/incidente/planes_accion.php';
+ public function planesAccion($id_incidente) {
+        $this->handleShowPlanesAccion($id_incidente, 'INCIDENTE', 'views/incidente/planes_accion.php');
     }
 
-    // Método para insertar un plan de acción
     public function insertPlanAccion($id_incidente, $data) {
-        $id_plan_accion = $this->planAccionModel->insert($data);
-        if ($id_plan_accion) {
-            $this->planAccionModel->linkToRegistro($id_plan_accion, $id_incidente, 'INCIDENTE');
-        }
-        header('Location: index.php?entity=incidente&action=planes_accion&id=' . $id_incidente);
+        $this->handleInsertPlanAccion($id_incidente, 'INCIDENTE', $data, 'incidente');
     }
 
-    // Método para actualizar un plan de acción
     public function updatePlanAccion($id_incidente, $id_plan_accion, $data) {
-        $this->planAccionModel->update($id_plan_accion, $data);
-        header('Location: index.php?entity=incidente&action=planes_accion&id=' . $id_incidente);
+        $this->handleUpdatePlanAccion($id_incidente, 'INCIDENTE', $id_plan_accion, $data, 'incidente');
     }
 
-    // Método para eliminar un plan de acción
     public function deletePlanAccion($id_incidente, $id_plan_accion) {
-        $this->planAccionModel->unlinkFromRegistro($id_plan_accion, $id_incidente, 'INCIDENTE');
-        $this->planAccionModel->delete($id_plan_accion);
-        header('Location: index.php?entity=incidente&action=planes_accion&id=' . $id_incidente);
+        $this->handleDeletePlanAccion($id_incidente, 'INCIDENTE', $id_plan_accion, 'incidente');
     }
 }
+?>

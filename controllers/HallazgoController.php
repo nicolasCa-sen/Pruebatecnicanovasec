@@ -4,18 +4,23 @@ require_once 'models/HallazgoModel.php';
 require_once 'models/ProcesoModel.php';
 require_once 'models/EstadoModel.php';
 require_once 'models/UsuarioModel.php';
+require_once 'models/PlanAccionModel.php';
+require_once 'Traits/PlanAccionTrait.php';
 
 class HallazgoController {
+    use PlanAccionTrait;
     private $model;
     private $procesoModel;
     private $estadoModel;
     private $usuarioModel;
+    private $planAccionModel;
 
     public function __construct($pdo) {
         $this->model = new HallazgoModel($pdo);
         $this->procesoModel = new ProcesoModel($pdo);
         $this->estadoModel = new EstadoModel($pdo);
         $this->usuarioModel = new UsuarioModel($pdo);
+        $this->planAccionModel = new PlanAccionModel($pdo);
     }
 
     public function index() {
@@ -89,6 +94,24 @@ class HallazgoController {
     } else {
         echo json_encode(['success' => false]);
     }
+    }public function planesAccion($id_hallazgo) {
+        $this->handleShowPlanesAccion($id_hallazgo, 'HALLAZGO', 'views/hallazgo/planes_accion.php');
+    }
+
+    public function insertPlanAccion($id_hallazgo, $data) {
+        $this->handleInsertPlanAccion($id_hallazgo, 'HALLAZGO', $data, 'hallazgo');
+    }
+
+    public function updatePlanAccion($id_hallazgo, $id_plan_accion, $data) {
+        $this->handleUpdatePlanAccion($id_hallazgo, 'HALLAZGO', $id_plan_accion, $data, 'hallazgo');
+    }
+
+    public function deletePlanAccion($id_hallazgo, $id_plan_accion) {
+        $this->handleDeletePlanAccion($id_hallazgo, 'HALLAZGO', $id_plan_accion, 'hallazgo');
+    }
+
+    public function asociarPlanExistente($id_hallazgo, $id_plan_accion) {
+        $this->handleAsociarPlanExistente($id_hallazgo, 'HALLAZGO', $id_plan_accion, 'hallazgo');
     }
 }
 ?>

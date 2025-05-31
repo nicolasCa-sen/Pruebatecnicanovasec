@@ -3,14 +3,15 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Planes de Acción del Incidente <?= $incidente['id'] ?></title>
+    <title>Planes de Acción del Incidente <?= isset($incidente['id']) ? $incidente['id'] : 'N/A' ?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <?php include 'views/layout/header.php'; ?>
 <div class="container mt-4">
-    <h2>Planes de Acción para el Incidente ID: <?= $incidente['id'] ?></h2>
-    <p><strong>Descripción del Incidente:</strong> <?= $incidente['descripcion'] ?></p>
+  
+        <h2>Planes de Acción para el Incidente ID: <?= htmlspecialchars($incidente['id'] ?? 'N/A') ?></h2>
+        <p><strong>Descripción del Incidente:</strong> <?= htmlspecialchars($incidente['descripcion'] ?? 'Sin descripción') ?></p>
     <!-- Botón para crear un nuevo plan de acción -->
     <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalCrearPlan">Crear Plan de Acción</button>
     <!-- Tabla de planes de acción -->
