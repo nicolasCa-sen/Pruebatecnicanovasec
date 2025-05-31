@@ -10,6 +10,22 @@
 <body>
 <div class="container mt-4">
     <h1>Lista de Incidentes</h1>
+     <div class="search-container">
+        <form method="GET" action="index.php" class="form-inline">
+            <input type="hidden" name="entity" value="incidente">
+            <input type="hidden" name="action" value="index">
+            <input type="number" name="search_id" class="form-control" placeholder="Buscar por ID" 
+            value="<?= isset($_GET['search_id']) ? htmlspecialchars($_GET['search_id']) : '' ?>">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <?php if (!empty($_GET['search_id'])): ?>
+                <a href="index.php?entity=incidente&action=index" class="btn btn-secondary">Mostrar todos</a>
+            <?php endif; ?>
+        </form>
+    </div>
+    
+    <?php if (!empty($searchResultMessage)): ?>
+        <div class="alert alert-info"><?= $searchResultMessage ?></div>
+    <?php endif; ?>
     <a href="index.php?entity=incidente&action=create" class="btn btn-primary mb-3">Crear Incidente</a>
     <table class="table table-bordered">
         <thead>
@@ -34,7 +50,7 @@
                     <a href="index.php?entity=incidente&action=show&id=<?= $incidente['id'] ?>" class="btn btn-info btn-sm">Ver</a>
                     <a href="index.php?entity=incidente&action=edit&id=<?= $incidente['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
                     <a href="index.php?entity=incidente&action=delete&id=<?= $incidente['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro?')">Eliminar</a>
-					 <a href="index.php?entity=incidente&action=planes_accion&id=<?= $incidente['id'] ?>" class="btn btn-secondary btn-sm">Planes de Acción</a>
+					<a href="index.php?entity=incidente&action=planes_accion&id=<?= $incidente['id'] ?>" class="btn btn-secondary btn-sm">Planes de Acción</a>
                 </td>
             </tr>
             <?php endforeach; ?>

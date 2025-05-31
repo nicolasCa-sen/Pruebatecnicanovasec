@@ -23,9 +23,28 @@ class IncidenteController {
     }
 
     public function index() {
+    // Verificar si hay una búsqueda por ID
+    if (isset($_GET['search_id']) && !empty($_GET['search_id'])) {
+        $searchId = (int)$_GET['search_id'];
+        $incidente = $this->model->searchById($searchId);
+        
+        if ($incidente) {
+            // Si encontramos el incidente, lo mostramos en un array para mantener la misma estructura de vista
+            $incidentes = [$incidente];
+            $searchResultMessage = "Mostrando resultado para ID: $searchId";
+        } else {
+            // Si no se encuentra, mostramos todos los incidentes con mensaje
+            $incidentes = $this->model->getAll();
+            $searchResultMessage = "No se encontró ningún incidente con ID: $searchId";
+        }
+    } else {
+        // Caso normal: mostrar todos los incidentes
         $incidentes = $this->model->getAll();
-        require 'views/incidente/list.php';
+        $searchResultMessage = "";
     }
+    
+    require 'views/incidente/list.php';
+}
 
     public function show($id) {
         $incidente = $this->model->getById($id);
