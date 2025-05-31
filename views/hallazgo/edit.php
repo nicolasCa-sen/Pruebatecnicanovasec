@@ -40,14 +40,30 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="procesos">Procesos</label>
-            <select multiple class="form-control" id="procesos" name="procesos[]">
-                <?php foreach ($procesos as $proceso): ?>
-                    <option value="<?= $proceso['id'] ?>" <?= in_array($proceso['id'], $selectedProcesoIds) ? 'selected' : '' ?>>
-                        <?= $proceso['nombre'] ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+            <label for="procesos">Procesos Afectados</label>
+            <div class="form-group mb-4">
+                <small class="form-text text-muted mb-2">Seleccione todos los procesos impactados por este hallazgo</small>
+                <div class="process-list-container">
+                    <div class="form-row">
+                        <?php foreach (array_chunk($procesos, ceil(count($procesos)/3)) as $procesos_columna): ?>
+                        <div class="col-md-4">
+                            <?php foreach ($procesos_columna as $proceso): ?>
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input"
+                                    id="proceso_<?= $proceso['id'] ?>"
+                                    name="procesos[]"
+                                    value="<?= $proceso['id'] ?>"
+                                    <?= in_array($proceso['id'], $selectedProcesoIds) ? 'checked' : '' ?>>
+                                <label class="custom-control-label" for="proceso_<?= $proceso['id'] ?>">
+                                    <?= $proceso['nombre'] ?>
+                                </label>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="id_proceso_origen">Proceso Origen</label>
