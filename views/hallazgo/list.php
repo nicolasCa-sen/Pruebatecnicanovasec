@@ -66,6 +66,7 @@
                     <a href="index.php?entity=hallazgo&action=show&id=<?= $hallazgo['id'] ?>" class="btn btn-info btn-sm">Ver</a>
                     <a href="index.php?entity=hallazgo&action=edit&id=<?= $hallazgo['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
                     <a href="index.php?entity=hallazgo&action=delete&id=<?= $hallazgo['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro?')">Eliminar</a>
+                    <a href="index.php?entity=hallazgo&action=planes_accion&id=<?= $hallazgo['id'] ?>" class="btn btn-secondary btn-sm">Planes</a>
                 </td>
             </tr>
             <?php endforeach; ?>
