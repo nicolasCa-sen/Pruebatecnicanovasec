@@ -4,7 +4,7 @@ require_once 'models/IncidenteModel.php';
 require_once 'models/EstadoModel.php';
 require_once 'models/UsuarioModel.php';
 require_once 'models/PlanAccionModel.php';
-require_once 'Traits/PlanAccionTrait.php';
+require_once 'traits/PlanAccionTrait.php';
 
 class IncidenteController {
 
